@@ -7,17 +7,17 @@ int main(void)
     while (1) {
         menu_t menu_code;
 
-        title_draw();
+        draw_title();
 
-        menu_code = menu_draw();
+        menu_code = draw_menu();
 
         switch (menu_code)
         {
         case MENU_START:
-            /* code */
+            draw_map();
             break;
         case MENU_GAME_INFO:
-            info_draw();
+            draw_info();
             break;
         case MENU_EXIT:
             return 0;
