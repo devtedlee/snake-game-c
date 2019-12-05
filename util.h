@@ -9,7 +9,8 @@ typedef enum input_key{
     INPUT_KEY_DOWN = 1,
     INPUT_KEY_LEFT = 2,
     INPUT_KEY_RIGHT = 3,
-    INPUT_KEY_SUBMIT = 4
+    INPUT_KEY_PAUSE = 4,
+    INPUT_KEY_SUBMIT = 5
 } input_key_t;
 
 enum color {
@@ -33,5 +34,11 @@ enum color {
 void goto_xy(const size_t x, const size_t y);
 
 input_key_t key_control(void);
+
+void set_color(const int fore_ground, const int back_ground);
+
+direction_t control_direction(const input_key_t input);
+
+void set_direction(direction_t* direction, const input_key_t input);
 
 #endif /* UTIL_H */
