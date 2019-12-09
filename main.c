@@ -7,7 +7,7 @@ int main(void)
 
     init();
 
-    while (1) {
+    while (true) {
         menu_t menu_code;
 
         draw_title();
@@ -23,7 +23,7 @@ int main(void)
             draw_map();
 
             /* GAME LOOP START */
-            while (1) {                
+            while (true) {                
                 if (_kbhit()) {
                     entered_key = key_control();
                     switch (entered_key)

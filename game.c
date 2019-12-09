@@ -4,7 +4,8 @@
 static element_t s_map[MAP_HEIGHT][MAP_WITDH] = { { 0, } };
 static int s_head_x = 23;
 static int s_head_y = 12;
-static int s_tail_length = 0;
+static int s_tail_x = 23;
+static int s_tail_y = 12;
 
 void init(void)
 {
@@ -47,7 +48,7 @@ menu_t draw_menu(void)
 
     goto_xy(x, y);
 
-    while (1) {
+    while (true) {
         input_key_t entered_key = key_control();
         switch (entered_key)
         {
@@ -104,7 +105,7 @@ void draw_map(void)
     system("cls");
 
     set_color(COLOR_WHITE, COLOR_WHITE);
-    for(x = MAP_X; x < MAP_WITDH + MAP_X + 1; ++x){
+    for(x = MAP_X; x < MAP_WITDH + MAP_X + 2; ++x){
         goto_xy(x, MAP_Y);
         printf("O");
         goto_xy(x, MAP_HEIGHT + MAP_Y + 1);
@@ -159,23 +160,8 @@ void move(const direction_t direction)
     set_color(COLOR_WHITE, COLOR_BLACK);
     s_map[s_head_y][s_head_x] = ELEMENT_SNAKE_BODY;
     */
-    switch (direction)
-    {
-    case NORTH:
-        --s_head_y;
-        break;
-    case SOUTH:
-        ++s_head_y;
-        break;
-    case WEST:
-        --s_head_x;
-        break;
-    case EAST:
-        ++s_head_x;
-        break;
-    default:
-        break;
-    }
+
+    set_position(direction, true);
 
     if (s_head_x < 0 || s_head_y < 0 || s_head_x >= MAP_WITDH || s_head_y >= MAP_HEIGHT) {
         /* TODO: GAME_OVER */
@@ -188,13 +174,14 @@ void move(const direction_t direction)
         set_color(COLOR_RED, COLOR_BLACK);
         goto_xy(s_head_x + ITEM_X, s_head_y + ITEM_Y);
         printf("%c", (char)ELEMENT_SNAKE_HEAD);
+        s_map[s_head_y][s_head_x] = ELEMENT_SNAKE_HEAD;
 
-        /* 
         set_color(COLOR_BLACK, COLOR_BLACK);
         goto_xy(s_tail_x + ITEM_X, s_tail_y + ITEM_Y);
         printf(" ");
-        s_map[s_tail_x][s_tail_y] = ELEMENT_EMPTY;
-        */
+        s_map[s_tail_y][s_tail_x] = ELEMENT_EMPTY;
+        set_position(direction, false);
+        set_color(COLOR_WHITE, COLOR_BLACK);
         break;
     case ELEMENT_SNAKE_BODY:
         /* TODO: GAME_OVER */
@@ -211,6 +198,37 @@ void move(const direction_t direction)
         break;
     }
 
-    s_map[s_head_y][s_head_x] = ELEMENT_SNAKE_HEAD;
     set_color(COLOR_WHITE, COLOR_BLACK);
+}
+
+void set_position(const direction_t direction, const bool is_head) {
+    int* x;
+    int* y;
+
+    if (is_head) {
+        x = &s_head_x;
+        y = &s_head_y;
+    } else {
+        x = &s_tail_x;
+        y = &s_tail_y;
+    }
+
+    switch (direction)
+    {
+    case NORTH:
+        --(*y);
+        break;
+    case SOUTH:
+        ++(*y);
+        break;
+    case WEST:
+        --(*x);
+        break;
+    case EAST:
+        ++(*x);
+        break;
+    default:
+        assert(0);
+        break;
+    }
 }

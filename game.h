@@ -51,4 +51,6 @@ void draw_map(void);
 
 void move(const direction_t direction);
 
+void set_position(const direction_t direction, const bool is_head);
+
 #endif /* GAME_H */
