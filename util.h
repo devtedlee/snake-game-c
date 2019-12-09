@@ -19,19 +19,20 @@ enum color {
     COLOR_GREEN,
     COLOR_CYAN,
     COLOR_RED,
-    COLOR_PURPLE,
+    COLOR_MAGENTA,
     COLOR_BROWN,
     COLOR_LIGHT_GRAY,
     COLOR_DARK_GRAY,
     COLOR_LIGHT_BLUE,
+    COLOR_LIGHT_GREEN,
     COLOR_LIGHT_CYAN,
     COLOR_LIGHT_RED,
-    COLOR_LIGHT_PURPLE,
+    COLOR_LIGHT_MAGENTA,
     COLOR_YELLOW,
     COLOR_WHITE
 };
 
-void goto_xy(const size_t x, const size_t y);
+void goto_xy_print(const size_t x, const size_t y, const char* str, ...);
 
 input_key_t key_control(void);
 

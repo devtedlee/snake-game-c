@@ -1,14 +1,38 @@
 #include "util.h"
 
-void goto_xy(const size_t x, const size_t y)
+void goto_xy_print(const size_t x, const size_t y, const char* str, ...)
 {
     HANDLE console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD pos;
+    va_list list;
+    size_t count = 0;
+    char* str_copy = (char*)str;
 
     pos.X = (SHORT)x;
     pos.Y = (SHORT)y;
 
     SetConsoleCursorPosition(console_handle, pos);
+
+    while (*str_copy != '\0') {
+        if (*str_copy == '%') {
+            ++count;
+        }
+        ++str_copy;
+    }
+
+    str_copy = (char*)str;
+    va_start(list, count);
+    while (*str_copy != '\0') {
+        char print = *str_copy;
+        if (*str_copy == '%') {
+            ++str_copy;
+            print = va_arg(list, char);
+        }
+
+        putchar(print);
+        ++str_copy;
+    }
+    va_end(list);
 }
 
 input_key_t key_control(void)

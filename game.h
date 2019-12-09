@@ -53,4 +53,6 @@ void move(const direction_t direction);
 
 void set_position(const direction_t direction, const bool is_head);
 
+void set_element(const element_t element);
+
 #endif /* GAME_H */
