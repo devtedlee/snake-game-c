@@ -20,10 +20,12 @@ int main(void)
             direction_t head_direction = EAST;
             input_key_t entered_key = -1;
 
+            reset();
             draw_map();
 
             /* GAME LOOP START */
-            while (true) {                
+            while (true) {
+                game_status_t game_status;                
                 if (_kbhit()) {
                     entered_key = key_control();
                     switch (entered_key)
@@ -39,8 +41,20 @@ int main(void)
                             entered_key = -1;
                             break;
                         case INPUT_KEY_PAUSE:
-                            /* add pause() */
-                            assert(0);
+                            while (true) {
+                                if(entered_key == INPUT_KEY_PAUSE){
+                                goto_xy_print(MAP_WIDTH / 2 - 15, MAP_HEIGHT + ITEM_Y / 2,"< PAUSE : PRESS ANY KEY TO RESUME > ");
+                                Sleep(400);
+                                goto_xy_print(MAP_WIDTH / 2 - 15, MAP_HEIGHT + ITEM_Y / 2,"                                    ");
+                                Sleep(400);
+                                } else {
+                                    draw_map();
+                                }
+                                if(_kbhit()){
+                                    draw_map();
+                                    goto resume_game_loop;
+                                }
+                            }
                             break;
                         case INPUT_KEY_SUBMIT:
                             goto end_game_loop;
@@ -48,8 +62,17 @@ int main(void)
                             continue;
                     }
                 }
+resume_game_loop:
                 Sleep(game_speed_millie);
-                move(head_direction);
+                game_status = move(head_direction, &game_speed_millie);
+                
+                if (game_status == GAME_OVER) {
+                    goto_xy_print(MAP_WIDTH / 2 - 11, MAP_HEIGHT / 2 , "+----------------------+");
+                    goto_xy_print(MAP_WIDTH / 2 - 11, MAP_HEIGHT / 2 + 1, "|      GAME OVER..     |");
+                    goto_xy_print(MAP_WIDTH / 2 - 11, MAP_HEIGHT / 2 + 2, "+----------------------+");
+                    Sleep(2000);
+                    goto end_game_loop;
+                }
             }/* GAME LOOP END */
 end_game_loop:
             break;

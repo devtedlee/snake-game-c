@@ -26,7 +26,14 @@ void goto_xy_print(const size_t x, const size_t y, const char* str, ...)
         char print = *str_copy;
         if (*str_copy == '%') {
             ++str_copy;
-            print = va_arg(list, char);
+            if (*str_copy == 'c') {
+                print = va_arg(list, char);
+            } else if (*str_copy == 'd') {
+                int num = va_arg(list, int);
+                printf("%d", num);
+                ++str_copy;
+                continue;
+            }
         }
 
         putchar(print);

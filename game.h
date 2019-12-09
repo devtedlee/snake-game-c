@@ -12,7 +12,7 @@
 #include <time.h>
 
 #define MAP_HEIGHT (23)
-#define MAP_WITDH (56)
+#define MAP_WIDTH (46)
 #define MAP_X (1)
 #define MAP_Y (1)
 #define ITEM_X (MAP_X + 1)
@@ -39,6 +39,16 @@ typedef enum direction {
     EAST = 3
 } direction_t;
 
+typedef struct snake {
+    int x;
+    int y;
+} snake_t;
+
+typedef enum game_status {
+    GAME_OVER = 0,
+    GAME_RESUME = 1
+} game_status_t;
+
 void init(void);
 
 void draw_title(void);
@@ -47,11 +57,11 @@ menu_t draw_menu(void);
 
 void draw_info(void);
 
+void reset(void);
+
 void draw_map(void);
 
-void move(const direction_t direction);
-
-void set_position(const direction_t direction, const bool is_head);
+game_status_t move(const direction_t direction, size_t* game_speed_millie_p);
 
 void set_element(const element_t element);
 
