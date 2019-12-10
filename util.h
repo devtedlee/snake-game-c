@@ -38,8 +38,6 @@ input_key_t key_control(void);
 
 void set_color(const int fore_ground, const int back_ground);
 
-direction_t control_direction(const input_key_t input);
-
 void set_direction(direction_t* direction, const input_key_t input);
 
 #endif /* UTIL_H */

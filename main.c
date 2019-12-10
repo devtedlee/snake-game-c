@@ -43,9 +43,9 @@ int main(void)
                         case INPUT_KEY_PAUSE:
                             while (true) {
                                 if(entered_key == INPUT_KEY_PAUSE){
-                                goto_xy_print(MAP_WIDTH / 2 - 15, MAP_HEIGHT + ITEM_Y / 2,"< PAUSE : PRESS ANY KEY TO RESUME > ");
+                                goto_xy_print(MAP_WIDTH / 2 - 15, MAP_HEIGHT + ITEM_Y / 2,"< PAUSE : PRESS ANY KEY TO RESUME >");
                                 Sleep(400);
-                                goto_xy_print(MAP_WIDTH / 2 - 15, MAP_HEIGHT + ITEM_Y / 2,"                                    ");
+                                goto_xy_print(MAP_WIDTH / 2 - 15, MAP_HEIGHT + ITEM_Y / 2,"                                   ");
                                 Sleep(400);
                                 } else {
                                     draw_map();
@@ -67,9 +67,9 @@ resume_game_loop:
                 game_status = move(head_direction, &game_speed_millie);
                 
                 if (game_status == GAME_OVER) {
-                    goto_xy_print(MAP_WIDTH / 2 - 11, MAP_HEIGHT / 2 , "+----------------------+");
-                    goto_xy_print(MAP_WIDTH / 2 - 11, MAP_HEIGHT / 2 + 1, "|      GAME OVER..     |");
-                    goto_xy_print(MAP_WIDTH / 2 - 11, MAP_HEIGHT / 2 + 2, "+----------------------+");
+                    goto_xy_print(MAP_WIDTH / 2 - 11, MAP_HEIGHT / 2 + 1, "+----------------------+");
+                    goto_xy_print(MAP_WIDTH / 2 - 11, MAP_HEIGHT / 2 + 2, "|      GAME OVER..     |");
+                    goto_xy_print(MAP_WIDTH / 2 - 11, MAP_HEIGHT / 2 + 3, "+----------------------+");
                     Sleep(2000);
                     goto end_game_loop;
                 }
